@@ -81,6 +81,8 @@ public class NavigationPane extends GameGrid
   private Properties properties;
   private java.util.List<java.util.List<Integer>> dieValues = new ArrayList<>();
   private GamePlayCallback gamePlayCallback;
+  // Tag for Change 1
+  private int numberOfDice;
 
   NavigationPane(Properties properties)
   {
@@ -89,6 +91,7 @@ public class NavigationPane extends GameGrid
             (properties.getProperty("dice.count") == null)
                     ? 1  // default
                     : Integer.parseInt(properties.getProperty("dice.count"));
+    this.numberOfDice = numberOfDice;
     System.out.println("numberOfDice = " + numberOfDice);
     isAuto = Boolean.parseBoolean(properties.getProperty("autorun"));
     autoChk = new GGCheckButton("Auto Run", YELLOW, TRANSPARENT, isAuto);
