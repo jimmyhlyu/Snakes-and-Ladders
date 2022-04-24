@@ -321,7 +321,7 @@ public class NavigationPane extends GameGrid
       gp.switchToNextPuppet();
       // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
       // Tag for change 3
-      // if they are in the same block, reverse one 
+      // if they are in the same block, reverse one
       if (currentIndex == gp.getPuppet().getCellIndex()){
         gp.getPuppet().go(-1);
       }
@@ -400,7 +400,7 @@ public class NavigationPane extends GameGrid
     diceCup.AddDice(die);
     addActor(die, dieBoardLocation);
     diceChance += 1;
-    delay(1000);
+
   }
 
   public void buttonPressed(GGButton btn)
