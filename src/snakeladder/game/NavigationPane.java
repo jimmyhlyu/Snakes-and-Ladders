@@ -17,21 +17,29 @@ public class NavigationPane extends GameGrid
   {
     public void run()
     {
+
+      // Tag for Change 1
       while (true)
       {
         Monitor.putSleep();
         handBtn.show(1);
-        diceChance = 0;
-        if (diceChance < numberOfDice){
-          roll(getDieValue());
-          diceChance+=1;
+
+        while(true){
+          if (diceChance < numberOfDice){
+            roll(getDieValue());
+          }
+          else if (diceChance >= numberOfDice) {
+            diceChance = 0;
+            System.out.println(diceChance);
+            delay(1000);
+            handBtn.show(0);
+            break;
+          }
+          handBtn.show(0);
         }
-        if (diceChance >= numberOfDice) {
-          diceChance = 0;
-          diceCup.RunDice();
-        }
-        delay(1000);
-        handBtn.show(0);
+        diceCup.RunDice();
+        
+
       }
     }
   }
@@ -168,13 +176,7 @@ public class NavigationPane extends GameGrid
         prepareBeforeRoll();
         roll(tag);
         // Tag for change 1
-        if (diceChance < numberOfDice){
-          handBtn.setEnabled(true);
-        }
-        if (diceChance >= numberOfDice){
-          diceChance = 0;
-          diceCup.RunDice();
-        }
+        rollDice();
       }
     }
   }
@@ -314,7 +316,7 @@ public class NavigationPane extends GameGrid
       } else if (gp.getPuppet().isAuto()) {
         Monitor.wakeUp();
       } else {
-          // Tap for change 1
+          // Tag for Change 1
           diceCup = new DiceCup(this);
           handBtn.setEnabled(true);
       }
@@ -338,15 +340,19 @@ public class NavigationPane extends GameGrid
     }
   }
 
-  // Tap for change 1
+  // Tag for Change 1
   public void buttonClicked(GGButton btn)
   {
     System.out.println("hand button clicked");
     prepareBeforeRoll();
     roll(getDieValue());
+    rollDice();
+  }
+
+  // Tag for Change 1
+  private void rollDice(){
     if (diceChance < numberOfDice) {
       showStatus("Wait for second dice");
-
       handBtn.setEnabled(true);
     }
     if (diceChance >= numberOfDice){
@@ -355,7 +361,7 @@ public class NavigationPane extends GameGrid
     }
   }
 
-  // Tap for change 1
+  // Tag for Change 1
   private void roll(int rollNumber)
   {
     int nb = rollNumber;
