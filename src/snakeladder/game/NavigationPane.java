@@ -21,12 +21,19 @@ public class NavigationPane extends GameGrid
       {
         Monitor.putSleep();
         handBtn.show(1);
-       roll(getDieValue());
+        diceChance = 0;
+        if (diceChance < numberOfDice){
+          roll(getDieValue());
+          diceChance+=1;
+        }
+        if (diceChance >= numberOfDice) {
+          diceChance = 0;
+          diceCup.RunDice();
+        }
         delay(1000);
         handBtn.show(0);
       }
     }
-
   }
 
   private final int DIE1_BUTTON_TAG = 1;
@@ -81,16 +88,21 @@ public class NavigationPane extends GameGrid
   private Properties properties;
   private java.util.List<java.util.List<Integer>> dieValues = new ArrayList<>();
   private GamePlayCallback gamePlayCallback;
+
   // Tag for Change 1
   private int numberOfDice;
+  private DiceCup diceCup = new DiceCup(this);
+  private int diceChance = 0;
 
   NavigationPane(Properties properties)
   {
+
     this.properties = properties;
     int numberOfDice =  //Number of six-sided dice
             (properties.getProperty("dice.count") == null)
                     ? 1  // default
                     : Integer.parseInt(properties.getProperty("dice.count"));
+    // Tag for Change 1
     this.numberOfDice = numberOfDice;
     System.out.println("numberOfDice = " + numberOfDice);
     isAuto = Boolean.parseBoolean(properties.getProperty("autorun"));
@@ -155,6 +167,14 @@ public class NavigationPane extends GameGrid
         System.out.println("manual die button clicked - tag: " + tag);
         prepareBeforeRoll();
         roll(tag);
+        // Tag for change 1
+        if (diceChance < numberOfDice){
+          handBtn.setEnabled(true);
+        }
+        if (diceChance >= numberOfDice){
+          diceChance = 0;
+          diceCup.RunDice();
+        }
       }
     }
   }
@@ -294,7 +314,9 @@ public class NavigationPane extends GameGrid
       } else if (gp.getPuppet().isAuto()) {
         Monitor.wakeUp();
       } else {
-        handBtn.setEnabled(true);
+          // Tap for change 1
+          diceCup = new DiceCup(this);
+          handBtn.setEnabled(true);
       }
     }
   }
@@ -302,7 +324,7 @@ public class NavigationPane extends GameGrid
   void startMoving(int nb)
   {
     showStatus("Moving...");
-    showPips("Pips: " + nb);
+    showPips("Total Pips: " + nb);
     showScore("# Rolls: " + (++nbRolls));
     gp.getPuppet().go(nb);
   }
@@ -316,13 +338,24 @@ public class NavigationPane extends GameGrid
     }
   }
 
+  // Tap for change 1
   public void buttonClicked(GGButton btn)
   {
     System.out.println("hand button clicked");
     prepareBeforeRoll();
     roll(getDieValue());
+    if (diceChance < numberOfDice) {
+      showStatus("Wait for second dice");
+
+      handBtn.setEnabled(true);
+    }
+    if (diceChance >= numberOfDice){
+      diceChance = 0;
+      diceCup.RunDice();
+    }
   }
 
+  // Tap for change 1
   private void roll(int rollNumber)
   {
     int nb = rollNumber;
@@ -330,11 +363,14 @@ public class NavigationPane extends GameGrid
       nb = ServicesRandom.get().nextInt(6) + 1;
     }
     showStatus("Rolling...");
-    showPips("");
+    showPips("Pips: " + nb);
 
     removeActors(Die.class);
     Die die = new Die(nb, this);
+    diceCup.AddDice(die);
     addActor(die, dieBoardLocation);
+    diceChance += 1;
+    delay(1000);
   }
 
   public void buttonPressed(GGButton btn)

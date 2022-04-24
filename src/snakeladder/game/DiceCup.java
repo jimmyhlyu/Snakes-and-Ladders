@@ -6,20 +6,26 @@ import java.util.ArrayList;
 public class DiceCup{
     private ArrayList<Die> dices = new ArrayList<>();
     private int nb = 0;
+    private NavigationPane np;
+
+    public DiceCup(NavigationPane np){
+        this.np  = np;
+    }
 
     public void AddDice(Die die){
         dices.add(die);
+        nb += die.getNb();
     }
 
-    public void RunDice(Location dieBoardLocation, NavigationPane NavP){
-        for (var die: dices) {
-            NavP.addActor(die, dieBoardLocation);
-        }
+    public void RunDice(){
+        np.startMoving(nb);
+        Clean();
     }
 
-    public void Clean(){
+    private void Clean(){
         dices.clear();
         nb = 0;
     }
+
 
 }

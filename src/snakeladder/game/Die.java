@@ -14,14 +14,20 @@ public class Die extends Actor
     this.np = np;
   }
 
+  // Tap for change 1
+
+  public int getNb() {
+    return nb;
+  }
+
   public void act()
   {
     showNextSprite();
     if (getIdVisible() == 6)
     {
       setActEnabled(false);
-      np.startMoving(nb);
     }
+    // Tap for change 1
   }
 
 }
