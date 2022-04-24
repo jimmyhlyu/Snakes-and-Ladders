@@ -52,6 +52,9 @@ public class Puppet extends Actor
     if(nbSteps == navigationPane.getNumberOfDice()){
       isMinStep = true;
     }
+    else {
+      isMinStep = false;
+    }
     System.out.println(isMinStep + "is min step");
     setActEnabled(true);
   }
@@ -138,8 +141,7 @@ public class Puppet extends Actor
       if (nbSteps == 0)
       {
         // Check if on connection start
-        if (((currentCon = gamePane.getConnectionAt(getLocation())) != null)
-                && isMinStep == false)
+        if ((currentCon = gamePane.getConnectionAt(getLocation())) != null)
         {
           gamePane.setSimulationPeriod(50);
           y = gamePane.toPoint(currentCon.locStart).y;
@@ -147,15 +149,22 @@ public class Puppet extends Actor
             dy = gamePane.animationStep;
           else
             dy = -gamePane.animationStep;
-          if (currentCon instanceof Snake)
+          // Tag for change 2
+          if (currentCon instanceof Snake && isMinStep == false)
           {
             navigationPane.showStatus("Digesting...");
             navigationPane.playSound(GGSound.MMM);
           }
-          else
-          {
+          else if (currentCon instanceof Ladder) {
             navigationPane.showStatus("Climbing...");
             navigationPane.playSound(GGSound.BOING);
+          }
+          // Tag for change 2
+          else
+          {
+            currentCon = null;
+            setActEnabled(false);
+            navigationPane.prepareRoll(cellIndex);
           }
         }
         else
