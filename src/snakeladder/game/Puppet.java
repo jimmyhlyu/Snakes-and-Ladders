@@ -14,6 +14,9 @@ public class Puppet extends Actor
   private int dy;
   private boolean isAuto;
   private String puppetName;
+  private boolean isMinStep;
+
+  //Tag for change 2
 
   Puppet(GamePane gp, NavigationPane np, String puppetImage)
   {
@@ -46,6 +49,10 @@ public class Puppet extends Actor
       setLocation(gamePane.startLocation);
     }
     this.nbSteps = nbSteps;
+    if(nbSteps == navigationPane.getNumberOfDice()){
+      isMinStep = true;
+    }
+    System.out.println(isMinStep + "is min step");
     setActEnabled(true);
   }
 
@@ -131,7 +138,8 @@ public class Puppet extends Actor
       if (nbSteps == 0)
       {
         // Check if on connection start
-        if ((currentCon = gamePane.getConnectionAt(getLocation())) != null)
+        if (((currentCon = gamePane.getConnectionAt(getLocation())) != null)
+                && isMinStep == false)
         {
           gamePane.setSimulationPeriod(50);
           y = gamePane.toPoint(currentCon.locStart).y;

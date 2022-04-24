@@ -23,7 +23,6 @@ public class NavigationPane extends GameGrid
       {
         Monitor.putSleep();
         handBtn.show(1);
-
         while(true){
           if (diceChance < numberOfDice){
             roll(getDieValue());
@@ -38,8 +37,6 @@ public class NavigationPane extends GameGrid
           handBtn.show(0);
         }
         diceCup.RunDice();
-        
-
       }
     }
   }
@@ -101,6 +98,11 @@ public class NavigationPane extends GameGrid
   private int numberOfDice;
   private DiceCup diceCup = new DiceCup(this);
   private int diceChance = 0;
+
+  // Tap for change 2
+  public int getNumberOfDice(){
+    return numberOfDice;
+  }
 
   NavigationPane(Properties properties)
   {
@@ -390,4 +392,5 @@ public class NavigationPane extends GameGrid
   public void checkAuto() {
     if (isAuto) Monitor.wakeUp();
   }
+
 }
