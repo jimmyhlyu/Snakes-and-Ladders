@@ -17,6 +17,9 @@ public class Puppet extends Actor
   // Tag for change 2
   // An indicator for is min step dice or not
   private boolean isMinStep;
+  // Tag for change 3
+  // An indicator for is reverse one block or not
+  private boolean isReverse = false;
 
 
 
@@ -92,6 +95,41 @@ public class Puppet extends Actor
     cellIndex++;
   }
 
+  // Tag for change 3
+  private void moveToLastCell()
+  {
+    /*
+    * A modify function from moveToNextCell()
+    * which will move to last cell
+    * */
+    int buffCell = cellIndex;
+    int tens = buffCell / 10;
+    int ones = buffCell - tens * 10;
+    if (tens % 2 == 0)     // Cells starting left 01, 21, .. 81
+    {
+      if (ones == 1 && cellIndex > 0)
+        setLocation(new Location(getX(), getY() + 1));
+      else if (buffCell % 10 == 0){
+        setLocation(new Location(getX() + 1, getY()));
+      }
+      else
+        setLocation(new Location(getX() - 1, getY()));
+
+    }
+    else     // Cells starting left 20, 40, .. 100
+    {
+      if (ones == 1 && cellIndex > 0)
+        setLocation(new Location(getX(), getY() + 1));
+      else if (buffCell % 10 == 0){
+        setLocation(new Location(getX() - 1, getY()));
+      }
+      else
+        setLocation(new Location(getX() + 1, getY()));
+    }
+    cellIndex--;
+  }
+
+
   public void act()
   {
     if ((cellIndex / 10) % 2 == 0)
@@ -128,9 +166,22 @@ public class Puppet extends Actor
     }
 
     // Normal movement
-    if (nbSteps > 0)
+    // Tag for Change 3
+    if (nbSteps > 0 || nbSteps == -1)
     {
-      moveToNextCell();
+      if (nbSteps > 0)
+      {
+        moveToNextCell();
+        nbSteps--;
+      }
+      // If this is reverse call
+      else if (nbSteps == -1)
+      {
+        isReverse = true;
+        moveToLastCell();
+        nbSteps ++;
+      }
+
 
       if (cellIndex == 100)  // Game over
       {
@@ -139,7 +190,7 @@ public class Puppet extends Actor
         return;
       }
 
-      nbSteps--;
+
       if (nbSteps == 0)
       {
         // Check if on connection start
@@ -173,8 +224,17 @@ public class Puppet extends Actor
         }
         else
         {
-          setActEnabled(false);
-          navigationPane.prepareRoll(cellIndex);
+          // Tag for change 3
+          // Dont go to next round if this is reverse call
+          if (isReverse == true){
+            setActEnabled(false);
+            isReverse = false;
+          }
+          else{
+            setActEnabled(false);
+            navigationPane.prepareRoll(cellIndex);
+          }
+
         }
       }
     }

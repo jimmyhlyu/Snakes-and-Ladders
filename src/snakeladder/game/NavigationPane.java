@@ -316,8 +316,16 @@ public class NavigationPane extends GameGrid
       showStatus("Done. Click the hand!");
       String result = gp.getPuppet().getPuppetName() + " - pos: " + currentIndex;
       showResult(result);
+
+
       gp.switchToNextPuppet();
       // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
+      // Tag for change 3
+      // if they are in the same block, reverse one 
+      if (currentIndex == gp.getPuppet().getCellIndex()){
+        gp.getPuppet().go(-1);
+      }
+
 
       if (isAuto) {
         Monitor.wakeUp();
@@ -388,7 +396,7 @@ public class NavigationPane extends GameGrid
 
     removeActors(Die.class);
     Die die = new Die(nb, this);
-    // Modify roll function for multiple dice propose 
+    // Modify roll function for multiple dice propose
     diceCup.AddDice(die);
     addActor(die, dieBoardLocation);
     diceChance += 1;
