@@ -4,6 +4,11 @@ import snakeladder.utility.ServicesRandom;
 import java.util.ArrayList;
 
 public class DiceCup{
+    /*
+    * This is the class for multiple dice
+    * It has a container for dice and A function to run all dice
+    * RunDice wil go to next round
+    */
     private ArrayList<Die> dices = new ArrayList<>();
     private int nb = 0;
     private NavigationPane np;

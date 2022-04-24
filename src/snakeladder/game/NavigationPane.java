@@ -23,6 +23,7 @@ public class NavigationPane extends GameGrid
       {
         Monitor.putSleep();
         handBtn.show(1);
+        // Enter loop for multiple dice
         while(true){
           if (diceChance < numberOfDice){
             roll(getDieValue());
@@ -36,6 +37,7 @@ public class NavigationPane extends GameGrid
           }
           handBtn.show(0);
         }
+        // out of loop. going for next round
         diceCup.RunDice();
       }
     }
@@ -95,11 +97,13 @@ public class NavigationPane extends GameGrid
   private GamePlayCallback gamePlayCallback;
 
   // Tag for Change 1
+  // Init value for Multiple dice
   private int numberOfDice;
   private DiceCup diceCup = new DiceCup(this);
   private int diceChance = 0;
 
   // Tap for change 2
+  // Getter for num of dice
   public int getNumberOfDice(){
     return numberOfDice;
   }
@@ -113,6 +117,7 @@ public class NavigationPane extends GameGrid
                     ? 1  // default
                     : Integer.parseInt(properties.getProperty("dice.count"));
     // Tag for Change 1
+    // Setter for num of dice
     this.numberOfDice = numberOfDice;
     System.out.println("numberOfDice = " + numberOfDice);
     isAuto = Boolean.parseBoolean(properties.getProperty("autorun"));
@@ -178,6 +183,7 @@ public class NavigationPane extends GameGrid
         prepareBeforeRoll();
         roll(tag);
         // Tag for change 1
+        // Roll multiple dice
         rollDice();
       }
     }
@@ -319,6 +325,7 @@ public class NavigationPane extends GameGrid
         Monitor.wakeUp();
       } else {
           // Tag for Change 1
+          // init a new Dice cup for a new round
           diceCup = new DiceCup(this);
           handBtn.setEnabled(true);
       }
@@ -348,11 +355,17 @@ public class NavigationPane extends GameGrid
     System.out.println("hand button clicked");
     prepareBeforeRoll();
     roll(getDieValue());
+    // Roll for multiple dice
     rollDice();
   }
 
   // Tag for Change 1
   private void rollDice(){
+    /*
+    * A Function for multiple dice round in Manual mode
+    * No need for input
+    * Will go into next round in the end
+    */
     if (diceChance < numberOfDice) {
       showStatus("Wait for second dice");
       handBtn.setEnabled(true);
@@ -375,6 +388,7 @@ public class NavigationPane extends GameGrid
 
     removeActors(Die.class);
     Die die = new Die(nb, this);
+    // Modify roll function for multiple dice propose 
     diceCup.AddDice(die);
     addActor(die, dieBoardLocation);
     diceChance += 1;

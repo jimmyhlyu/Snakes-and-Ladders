@@ -14,9 +14,11 @@ public class Puppet extends Actor
   private int dy;
   private boolean isAuto;
   private String puppetName;
+  // Tag for change 2
+  // An indicator for is min step dice or not
   private boolean isMinStep;
 
-  //Tag for change 2
+
 
   Puppet(GamePane gp, NavigationPane np, String puppetImage)
   {
@@ -150,6 +152,7 @@ public class Puppet extends Actor
           else
             dy = -gamePane.animationStep;
           // Tag for change 2
+          // will be false if is min step
           if (currentCon instanceof Snake && isMinStep == false)
           {
             navigationPane.showStatus("Digesting...");
@@ -160,6 +163,7 @@ public class Puppet extends Actor
             navigationPane.playSound(GGSound.BOING);
           }
           // Tag for change 2
+          // A case for min step and in the snake position
           else
           {
             currentCon = null;
