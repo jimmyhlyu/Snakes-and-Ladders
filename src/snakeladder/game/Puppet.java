@@ -70,7 +70,7 @@ public class Puppet extends Actor
     setActEnabled(true);
   }
 
-  int getCellIndex() {
+  public int getCellIndex() {
     return cellIndex;
   }
 

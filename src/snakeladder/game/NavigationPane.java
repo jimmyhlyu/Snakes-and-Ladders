@@ -4,6 +4,7 @@ import ch.aplu.jgamegrid.*;
 import java.awt.*;
 import ch.aplu.util.*;
 import snakeladder.game.custom.CustomGGButton;
+import snakeladder.game.custom.Strategy;
 import snakeladder.utility.ServicesRandom;
 
 import java.util.ArrayList;
@@ -32,12 +33,28 @@ public class NavigationPane extends GameGrid
           else if (diceChance >= numberOfDice) {
             diceChance = 0;
             System.out.println(diceChance);
-            
             handBtn.show(0);
             break;
           }
           handBtn.show(0);
         }
+        // Tag for change 4
+        if (Strategy.defaultStrategy(gp))
+        {
+          gp.ReverseConnections();
+          if(isToggle){
+            isToggle = false;
+            toggleCheck.setChecked(isToggle);
+          }
+          else {
+            isToggle = true;
+            toggleCheck.setChecked(true);
+          }
+
+        }
+
+
+
         // out of loop. going for next round
         diceCup.RunDice();
       }
@@ -109,6 +126,10 @@ public class NavigationPane extends GameGrid
     return numberOfDice;
   }
 
+  // Tag for toggleCheck;
+  public boolean getIsToggle(){
+    return isToggle;
+  }
   NavigationPane(Properties properties)
   {
 
@@ -243,6 +264,8 @@ public class NavigationPane extends GameGrid
       @Override
       public void buttonChecked(GGCheckButton ggCheckButton, boolean checked) {
         isToggle = checked;
+        System.out.println("if check = " + checked);
+        gp.ReverseConnections();
       }
     });
 

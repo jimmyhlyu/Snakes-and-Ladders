@@ -17,6 +17,9 @@ public abstract class Connection
     locEnd = GamePane.cellToLocation(cellEnd);
   }
 
+
+
+
   String imagePath;
 
   public Location getLocStart() {

@@ -10,4 +10,5 @@ public class Ladder extends Connection
     setImagePath(BackgroundDrawing.SPRITES_PATH + "ladder.png");
   }
 
+
 }

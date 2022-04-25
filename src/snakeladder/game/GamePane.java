@@ -16,6 +16,9 @@ public class GamePane extends GameGrid
   private List<Puppet> puppets =  new ArrayList<>();
   private List<Boolean> playerManualMode;
   private ArrayList<Connection> connections = new ArrayList<Connection>();
+  // Tag for change 4
+  private ArrayList<Connection> originalConnections;
+  private ArrayList<Connection> reverseConnections;
   final Location startLocation = new Location(-1, 9);  // outside grid
   final int animationStep = 10;
   public static final int NUMBER_HORIZONTAL_CELLS = 10;
@@ -33,8 +36,25 @@ public class GamePane extends GameGrid
     createSnakesLadders(properties);
     setupPlayers(properties);
     setBgImagePath("sprites/gamepane_snakeladder.png");
+
   }
 
+  // Tag for Change 4
+  public void ReverseConnections(){
+    for (Connection con:
+         connections) {
+      int buffStart = con.cellStart;
+      con.cellStart = con.cellEnd;
+      con.cellEnd = buffStart;
+      con.locStart = cellToLocation(con.cellStart);
+      con.locEnd = cellToLocation(con.cellEnd);
+    }
+  }
+
+  // Tag for Change 4
+  public NavigationPane getNp(){
+    return np;
+  }
   void setupPlayers(Properties properties) {
     numberOfPlayers = Integer.parseInt(properties.getProperty("players.count"));
     playerManualMode = new ArrayList<>();
@@ -74,6 +94,12 @@ public class GamePane extends GameGrid
     return puppets.get(currentPuppetIndex);
   }
 
+  //Tag for change 4
+
+  public Puppet getNextPuppet(){
+    return puppets.get((currentPuppetIndex + 1) % numberOfPlayers);
+  }
+
   void switchToNextPuppet() {
     currentPuppetIndex = (currentPuppetIndex + 1) % numberOfPlayers;
   }
@@ -92,7 +118,7 @@ public class GamePane extends GameGrid
     return numberOfPlayers;
   }
 
-  Connection getConnectionAt(Location loc)
+  public Connection getConnectionAt(Location loc)
   {
     for (Connection con : connections)
       if (con.locStart.equals(loc))
@@ -100,7 +126,7 @@ public class GamePane extends GameGrid
     return null;
   }
 
-  static Location cellToLocation(int cellIndex)
+  public static Location cellToLocation(int cellIndex)
   {
     int index = cellIndex - 1;  // 0..99
 
