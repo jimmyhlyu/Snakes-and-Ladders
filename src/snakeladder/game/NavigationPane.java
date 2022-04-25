@@ -4,7 +4,6 @@ import ch.aplu.jgamegrid.*;
 import java.awt.*;
 import ch.aplu.util.*;
 import snakeladder.game.custom.CustomGGButton;
-import snakeladder.game.custom.Strategy;
 import snakeladder.utility.ServicesRandom;
 
 import java.util.ArrayList;
@@ -50,11 +49,7 @@ public class NavigationPane extends GameGrid
             isToggle = true;
             toggleCheck.setChecked(true);
           }
-
         }
-
-
-
         // out of loop. going for next round
         diceCup.RunDice();
       }
@@ -126,10 +121,16 @@ public class NavigationPane extends GameGrid
     return numberOfDice;
   }
 
-  // Tag for toggleCheck;
+  // Tag for change 4;
   public boolean getIsToggle(){
     return isToggle;
   }
+
+  // Tag for change 5
+  public GamePane getGp(){
+    return gp;
+  }
+
   NavigationPane(Properties properties)
   {
 
@@ -235,7 +236,7 @@ public class NavigationPane extends GameGrid
     }
     int currentRound = nbRolls / gp.getNumberOfPlayers();
     int playerIndex = nbRolls % gp.getNumberOfPlayers();
-    if (dieValues.get(playerIndex).size() > currentRound) {
+    if (dieValues.get(playerIndex).size() > currentRound*numberOfDice + diceChance) {
       // modify dice index for multiple dice
       return dieValues.get(playerIndex).get(currentRound*numberOfDice + diceChance);
     }

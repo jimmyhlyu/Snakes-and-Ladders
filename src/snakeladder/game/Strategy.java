@@ -1,4 +1,4 @@
-package snakeladder.game.custom;
+package snakeladder.game;
 
 import snakeladder.game.*;
 

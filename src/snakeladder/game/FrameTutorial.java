@@ -28,6 +28,11 @@ public class FrameTutorial extends JFrame
       @Override
       public void finishGameWithResults(int winningPlayerIndex, List<String> playerCurrentPositions) {
        System.out.println("DO NOT CHANGE THIS LINE---WINNING INFORMATION: " + winningPlayerIndex + "-" + String.join(",", playerCurrentPositions));
+       // Tag for change 5
+       System.out.println(gp.getPuppet().getRollStat().getStats(gp.getPuppet().getPuppetName(),"rolled"));
+       System.out.println(gp.getPuppet().getTraverStat().getStats(gp.getPuppet().getPuppetName(),"traversed"));
+       System.out.println(gp.getNextPuppet().getRollStat().getStats(gp.getNextPuppet().getPuppetName(),"rolled"));
+       System.out.println(gp.getNextPuppet().getTraverStat().getStats(gp.getNextPuppet().getPuppetName(),"traversed"));
       }
     });
 

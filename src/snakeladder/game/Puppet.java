@@ -2,6 +2,8 @@ package snakeladder.game;
 
 import ch.aplu.jgamegrid.*;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Puppet extends Actor
 {
@@ -20,6 +22,24 @@ public class Puppet extends Actor
   // Tag for change 3
   // An indicator for is reverse one block or not
   private boolean isReverse = false;
+
+
+
+
+  // Tag for change 5
+  private Statistic rollStat = new Statistic(new HashMap<Integer,Integer>());
+
+
+
+  private Statistic traverStat = new Statistic(new HashMap<String,Integer>());
+
+  public Statistic getRollStat() {
+    return rollStat;
+  }
+  public Statistic getTraverStat() {
+    return traverStat;
+  }
+
 
 
 
@@ -198,10 +218,16 @@ public class Puppet extends Actor
         {
           gamePane.setSimulationPeriod(50);
           y = gamePane.toPoint(currentCon.locStart).y;
-          if (currentCon.locEnd.y > currentCon.locStart.y)
+
+          // Tag for change 5
+          if (currentCon.locEnd.y > currentCon.locStart.y) {
             dy = gamePane.animationStep;
-          else
-            dy = -gamePane.animationStep;
+            traverStat.addRStats("up");
+          }
+          else {
+          dy = -gamePane.animationStep;
+            traverStat.addRStats("down");
+          }
           // Tag for change 2
           // will be false if is min step
           if (currentCon instanceof Snake && isMinStep == false)

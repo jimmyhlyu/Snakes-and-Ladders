@@ -20,9 +20,15 @@ public class DiceCup{
     public void AddDice(Die die){
         dices.add(die);
         nb += die.getNb();
+
     }
 
     public void RunDice(){
+        for (Die die:
+             dices) {
+            // Tag for change 5
+            np.getGp().getPuppet().getRollStat().addRStats(die.getNb());
+        }
         np.startMoving(nb);
         Clean();
     }
