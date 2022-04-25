@@ -28,9 +28,6 @@ public class Puppet extends Actor
 
   // Tag for change 5
   private Statistic rollStat = new Statistic(new HashMap<Integer,Integer>());
-
-
-
   private Statistic traverStat = new Statistic(new HashMap<String,Integer>());
 
   public Statistic getRollStat() {
@@ -74,13 +71,13 @@ public class Puppet extends Actor
       setLocation(gamePane.startLocation);
     }
     this.nbSteps = nbSteps;
+    //Tag for change 2
     if(nbSteps == navigationPane.getNumberOfDice()){
       isMinStep = true;
     }
     else {
       isMinStep = false;
     }
-    System.out.println(isMinStep + "is min step");
     setActEnabled(true);
   }
 

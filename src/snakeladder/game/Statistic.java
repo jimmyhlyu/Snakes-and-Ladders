@@ -5,8 +5,8 @@ import java.util.Hashtable;
 
 // Tag for change 5
 public class Statistic <K>{
-    private HashMap<K,Integer> stats;
 
+    private HashMap<K,Integer> stats;
 
     public Statistic(HashMap<K, Integer> stats) {
         this.stats = stats;

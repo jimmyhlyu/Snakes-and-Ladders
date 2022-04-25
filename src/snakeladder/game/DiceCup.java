@@ -3,6 +3,8 @@ import ch.aplu.jgamegrid.Location;
 import snakeladder.utility.ServicesRandom;
 import java.util.ArrayList;
 
+
+// Tag for change 1
 public class DiceCup{
     /*
     * This is the class for multiple dice
@@ -20,7 +22,6 @@ public class DiceCup{
     public void AddDice(Die die){
         dices.add(die);
         nb += die.getNb();
-
     }
 
     public void RunDice(){

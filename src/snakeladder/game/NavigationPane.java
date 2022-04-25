@@ -23,6 +23,7 @@ public class NavigationPane extends GameGrid
       {
         Monitor.putSleep();
         handBtn.show(1);
+        //Tag for change 1
         // Enter loop for multiple dice
         while(true){
           if (diceChance < numberOfDice){
@@ -31,7 +32,6 @@ public class NavigationPane extends GameGrid
           }
           else if (diceChance >= numberOfDice) {
             diceChance = 0;
-            System.out.println(diceChance);
             handBtn.show(0);
             break;
           }
@@ -115,7 +115,7 @@ public class NavigationPane extends GameGrid
   private DiceCup diceCup = new DiceCup(this);
   private int diceChance = 0;
 
-  // Tap for change 2
+  // Tag for change 2
   // Getter for num of dice
   public int getNumberOfDice(){
     return numberOfDice;
@@ -236,7 +236,7 @@ public class NavigationPane extends GameGrid
     }
     int currentRound = nbRolls / gp.getNumberOfPlayers();
     int playerIndex = nbRolls % gp.getNumberOfPlayers();
-    if (dieValues.get(playerIndex).size() > currentRound*numberOfDice + diceChance) {
+    if (dieValues.get(playerIndex).size() > currentRound*numberOfDice + diceChance + 1) {
       // modify dice index for multiple dice
       return dieValues.get(playerIndex).get(currentRound*numberOfDice + diceChance);
     }
@@ -403,7 +403,7 @@ public class NavigationPane extends GameGrid
     * Will go into next round in the end
     */
     if (diceChance < numberOfDice) {
-      showStatus("Wait for second dice");
+      showStatus("Wait for next dice");
       handBtn.setEnabled(true);
     }
     if (diceChance >= numberOfDice){
@@ -424,11 +424,11 @@ public class NavigationPane extends GameGrid
 
     removeActors(Die.class);
     Die die = new Die(nb, this);
+    // Tag for change 1
     // Modify roll function for multiple dice propose
     diceCup.AddDice(die);
     addActor(die, dieBoardLocation);
     diceChance += 1;
-
   }
 
   public void buttonPressed(GGButton btn)

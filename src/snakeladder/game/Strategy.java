@@ -4,6 +4,9 @@ import snakeladder.game.*;
 
 //Tag for change 4
 public final class Strategy {
+
+
+
     public static boolean defaultStrategy(GamePane gp){
         Puppet opponent = gp.getNextPuppet();
         int cellIndex = opponent.getCellIndex();
@@ -27,4 +30,7 @@ public final class Strategy {
         }
         else return !(countLadder >= countSnake);
     }
+
+
+
 }
