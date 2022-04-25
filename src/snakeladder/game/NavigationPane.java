@@ -206,6 +206,7 @@ public class NavigationPane extends GameGrid
     die6Button.addButtonListener(manualDieButton);
   }
 
+    // Tag for change 1
   private int getDieValue() {
     if (dieValues == null) {
       return RANDOM_ROLL_TAG;
@@ -213,7 +214,8 @@ public class NavigationPane extends GameGrid
     int currentRound = nbRolls / gp.getNumberOfPlayers();
     int playerIndex = nbRolls % gp.getNumberOfPlayers();
     if (dieValues.get(playerIndex).size() > currentRound) {
-      return dieValues.get(playerIndex).get(currentRound);
+      // modify dice index for multiple dice
+      return dieValues.get(playerIndex).get(currentRound*numberOfDice + diceChance);
     }
     return RANDOM_ROLL_TAG;
   }
@@ -340,6 +342,7 @@ public class NavigationPane extends GameGrid
     }
   }
 
+  // Tag for change 1
   void startMoving(int nb)
   {
     showStatus("Moving...");
