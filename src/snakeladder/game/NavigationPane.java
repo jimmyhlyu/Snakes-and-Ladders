@@ -27,11 +27,12 @@ public class NavigationPane extends GameGrid
         while(true){
           if (diceChance < numberOfDice){
             roll(getDieValue());
+            delay(1000);
           }
           else if (diceChance >= numberOfDice) {
             diceChance = 0;
             System.out.println(diceChance);
-            delay(1000);
+            
             handBtn.show(0);
             break;
           }
