@@ -13,7 +13,7 @@ public final class Strategy {
         int countSnake = 0;
         int countLadder = 0;
         NavigationPane np = gp.getNp();
-        for (int die = 1; die < np.getNumberOfDice() * 6; die ++){
+        for (int die = np.getNumberOfDice(); die < np.getNumberOfDice() * 6; die ++){
             Connection connection = gp.getConnectionAt(gp.cellToLocation(cellIndex + die));
             if(connection == null){
                 continue;
@@ -28,7 +28,7 @@ public final class Strategy {
         if (!np.getIsToggle()){
             return countLadder >= countSnake;
         }
-        else return !(countLadder >= countSnake);
+        else return !(countLadder > countSnake);
     }
 
 
