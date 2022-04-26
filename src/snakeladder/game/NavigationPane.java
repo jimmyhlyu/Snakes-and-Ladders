@@ -349,9 +349,7 @@ public class NavigationPane extends GameGrid
       // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
       // Tag for change 3
       // if they are in the same block, reverse one
-      if (currentIndex == gp.getPuppet().getCellIndex()){
-        gp.getPuppet().go(-1);
-      }
+
 
 
       if (isAuto) {

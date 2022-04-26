@@ -23,7 +23,7 @@ public class Statistic <K>{
     }
 
     public String getStats(String playerName, String statName) {
-        String msg = "";
+        java.lang.String msg = "";
         msg += playerName + " " +statName + ": ";
         for (K key: stats.keySet()) {
             msg += key + "-";

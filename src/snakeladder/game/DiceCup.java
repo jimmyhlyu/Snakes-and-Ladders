@@ -30,6 +30,11 @@ public class DiceCup{
             // Tag for change 5
             np.getGp().getPuppet().getRollStat().addRStats(die.getNb());
         }
+
+        // tag for change 3
+        if (np.getGp().getPuppet().getCellIndex() + nb == np.getGp().getNextPuppet().getCellIndex()){
+            np.getGp().getNextPuppet().go(-1);
+        }
         np.startMoving(nb);
         Clean();
     }
