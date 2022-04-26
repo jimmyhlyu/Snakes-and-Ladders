@@ -25,16 +25,14 @@ public class DiceCup{
     }
 
     public void RunDice(){
-        for (Die die:
-             dices) {
-            // Tag for change 5
-            np.getGp().getPuppet().getRollStat().addRStats(die.getNb());
-        }
+
 
         // tag for change 3
         if (np.getGp().getPuppet().getCellIndex() + nb == np.getGp().getNextPuppet().getCellIndex()){
             np.getGp().getNextPuppet().go(-1);
         }
+
+        np.getGp().getPuppet().getRollStat().addRStats(nb);
         np.startMoving(nb);
         Clean();
     }

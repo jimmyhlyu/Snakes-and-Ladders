@@ -3,7 +3,9 @@ package snakeladder.game;
 import ch.aplu.jgamegrid.*;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Puppet extends Actor
 {
@@ -22,20 +24,21 @@ public class Puppet extends Actor
   // Tag for change 3
   // An indicator for is reverse one block or not
   private boolean isReverse = false;
-
+  private Statistic rollStat;
+  private Statistic traverStat;
 
 
 
   // Tag for change 5
-  private Statistic rollStat = new Statistic(new HashMap<Integer,Integer>());
-  private Statistic traverStat = new Statistic(new HashMap<String,Integer>());
+  public List<Integer> Rollstats(int diceNum){
+    List<Integer> rollstats = new ArrayList<>();
+    for (int i = 1; i <= diceNum * 6; i++){
+      rollstats.add(i);
+      System.out.println(i);
+    }
+    return rollstats;
+  }
 
-  public Statistic getRollStat() {
-    return rollStat;
-  }
-  public Statistic getTraverStat() {
-    return traverStat;
-  }
 
 
 
@@ -45,6 +48,18 @@ public class Puppet extends Actor
     super(puppetImage);
     this.gamePane = gp;
     this.navigationPane = np;
+    this.rollStat = new Statistic(Rollstats(navigationPane.getNumberOfDice()));
+    this.traverStat =  new Statistic(new ArrayList(Arrays.asList("up", "down")));
+  }
+
+
+
+
+  public Statistic getRollStat() {
+    return rollStat;
+  }
+  public Statistic getTraverStat() {
+    return traverStat;
   }
 
   public boolean isAuto() {
