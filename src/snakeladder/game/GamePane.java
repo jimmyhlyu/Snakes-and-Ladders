@@ -40,6 +40,7 @@ public class GamePane extends GameGrid
   }
 
   // Tag for Change 4
+  // This function is for reversing all the connection in gp's arraylist
   public void ReverseConnections(){
     for (Connection con:
          connections) {
@@ -55,6 +56,7 @@ public class GamePane extends GameGrid
   public NavigationPane getNp(){
     return np;
   }
+
   void setupPlayers(Properties properties) {
     numberOfPlayers = Integer.parseInt(properties.getProperty("players.count"));
     playerManualMode = new ArrayList<>();

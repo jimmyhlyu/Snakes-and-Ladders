@@ -7,6 +7,12 @@ import java.util.List;
 
 // Tag for change 5
 public class Statistic <K>{
+    /*
+    * Statistic, this class is using the generic <K>, which stands for the type of our stats data.
+    * Its constructor takes a List<K> which is the key entries for init the Hashmap stats.
+    * AddRStats(key) will increment the value of the key
+    * getStats() will return string formatted output
+     */
 
     private HashMap<K,Integer> stats;
 
@@ -14,7 +20,6 @@ public class Statistic <K>{
         this.stats = new HashMap<K, Integer>();
         for(int i = 0; i < statIndex.size(); i ++){
             stats.put(statIndex.get(i), 0);
-
         }
     }
 

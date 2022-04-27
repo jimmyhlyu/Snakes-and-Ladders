@@ -19,11 +19,12 @@ public class NavigationPane extends GameGrid
     {
 
       // Tag for Change 1
+      // This is the process thread for auto player
       while (true)
       {
         Monitor.putSleep();
         handBtn.show(1);
-        //Tag for change 1
+        // Tag for change 1
         // Enter loop for multiple dice
         while(true){
           if (diceChance < numberOfDice){
@@ -37,11 +38,21 @@ public class NavigationPane extends GameGrid
           }
           handBtn.show(0);
         }
+
+        if (Strategy.defaultStrategy(gp) && (gp.getPuppet().isAuto()))
+        {
+
+          willReverse = true;
+
+
+        }
+
         // out of loop. going for next round
         diceCup.RunDice();
       }
     }
   }
+
 
   private final int DIE1_BUTTON_TAG = 1;
   private final int DIE2_BUTTON_TAG = 2;
@@ -95,6 +106,7 @@ public class NavigationPane extends GameGrid
   private Properties properties;
   private java.util.List<java.util.List<Integer>> dieValues = new ArrayList<>();
   private GamePlayCallback gamePlayCallback;
+  private boolean willReverse = false;
 
   // Tag for Change 1
   // Init value for Multiple dice
@@ -336,21 +348,7 @@ public class NavigationPane extends GameGrid
       // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
 
       // Tag for change 4
-      if (Strategy.defaultStrategy(gp))
-      {
-        gp.ReverseConnections();
-        if(isToggle){
-          isToggle = false;
-          toggleCheck.setChecked(isToggle);
-        }
-        else {
-          isToggle = true;
-          toggleCheck.setChecked(true);
-        }
-      }
-
-
-
+      ReverseConnection();
       if (isAuto) {
         Monitor.wakeUp();
       } else if (gp.getPuppet().isAuto()) {
@@ -391,7 +389,21 @@ public class NavigationPane extends GameGrid
     // Roll for multiple dice
     rollDice();
   }
-
+  // Tag for change 4
+  private void ReverseConnection(){
+    if(willReverse == true){
+      gp.ReverseConnections();
+      if(isToggle){
+        isToggle = false;
+        toggleCheck.setChecked(false);
+      }
+      else {
+        isToggle = true;
+        toggleCheck.setChecked(true);
+      }
+      willReverse = false;
+    }
+  }
   // Tag for Change 1
   private void rollDice(){
     /*

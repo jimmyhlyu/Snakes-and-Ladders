@@ -15,7 +15,6 @@ public class Die extends Actor
   }
 
   // Tap for change 1
-
   public int getNb() {
     return nb;
   }
@@ -28,6 +27,7 @@ public class Die extends Actor
       setActEnabled(false);
     }
     // Tap for change 1
+    // Removed the entry for next round 
   }
 
 }

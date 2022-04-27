@@ -34,7 +34,6 @@ public class Puppet extends Actor
     List<Integer> rollstats = new ArrayList<>();
     for (int i = diceNum; i <= diceNum * 6; i++){
       rollstats.add(i);
-      System.out.println(i);
     }
     return rollstats;
   }
