@@ -32,7 +32,7 @@ public class Puppet extends Actor
   // Tag for change 5
   public List<Integer> Rollstats(int diceNum){
     List<Integer> rollstats = new ArrayList<>();
-    for (int i = 1; i <= diceNum * 6; i++){
+    for (int i = diceNum; i <= diceNum * 6; i++){
       rollstats.add(i);
       System.out.println(i);
     }
