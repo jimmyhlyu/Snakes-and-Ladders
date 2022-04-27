@@ -28,6 +28,7 @@ public class DiceCup{
 
 
         // tag for change 3
+        // Check for the same block situation
         if (np.getGp().getPuppet().getCellIndex() + nb == np.getGp().getNextPuppet().getCellIndex()){
             np.getGp().getNextPuppet().go(-1);
         }
