@@ -192,7 +192,14 @@ public class Puppet extends Actor
         cellIndex = currentCon.cellEnd;
         setLocationOffset(new Point(0, 0));
         currentCon = null;
-        navigationPane.prepareRoll(cellIndex);
+        // Tag for change 3
+        // Don't go to next round if this is reverse call
+        if (isReverse){
+          isReverse = false;
+        }
+        else{
+          navigationPane.prepareRoll(cellIndex);
+        }
       }
       return;
     }
@@ -232,22 +239,24 @@ public class Puppet extends Actor
           y = gamePane.toPoint(currentCon.locStart).y;
 
           // Tag for change 5
-          if (currentCon.locEnd.y > currentCon.locStart.y) {
+          if (currentCon.locEnd.y > currentCon.locStart.y && !isMinStep) {
             dy = gamePane.animationStep;
-            traverStat.addRStats("up");
-          }
-          else {
-          dy = -gamePane.animationStep;
             traverStat.addRStats("down");
+          }
+          else if (currentCon.locEnd.y < currentCon.locStart.y) {
+            dy = -gamePane.animationStep;
+            traverStat.addRStats("up");
           }
           // Tag for change 2
           // will be false if is min step
-          if (currentCon instanceof Snake && isMinStep == false)
+          if ((currentCon instanceof Snake && !isMinStep && !navigationPane.getIsToggle())
+                  || (currentCon instanceof Snake && navigationPane.getIsToggle()))
           {
             navigationPane.showStatus("Digesting...");
             navigationPane.playSound(GGSound.MMM);
           }
-          else if (currentCon instanceof Ladder) {
+          else if ((currentCon instanceof Ladder && !isMinStep && navigationPane.getIsToggle())
+                  || (currentCon instanceof Ladder && !navigationPane.getIsToggle())) {
             navigationPane.showStatus("Climbing...");
             navigationPane.playSound(GGSound.BOING);
           }
@@ -263,7 +272,7 @@ public class Puppet extends Actor
         else
         {
           // Tag for change 3
-          // Dont go to next round if this is reverse call
+          // Don't go to next round if this is reverse call
           if (isReverse == true){
             setActEnabled(false);
             isReverse = false;

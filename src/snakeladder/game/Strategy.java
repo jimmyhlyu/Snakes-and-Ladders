@@ -8,12 +8,12 @@ public final class Strategy {
 
 
     public static boolean defaultStrategy(GamePane gp){
-        Puppet opponent = gp.getNextPuppet();
+        Puppet opponent = gp.getPuppet();
         int cellIndex = opponent.getCellIndex();
         int countSnake = 0;
         int countLadder = 0;
         NavigationPane np = gp.getNp();
-        for (int die = np.getNumberOfDice(); die < np.getNumberOfDice() * 6; die ++){
+        for (int die = np.getNumberOfDice(); die <= np.getNumberOfDice() * 6; die ++){
             Connection connection = gp.getConnectionAt(gp.cellToLocation(cellIndex + die));
             if(connection == null){
                 continue;

@@ -37,19 +37,6 @@ public class NavigationPane extends GameGrid
           }
           handBtn.show(0);
         }
-        // Tag for change 4
-        if (Strategy.defaultStrategy(gp))
-        {
-          gp.ReverseConnections();
-          if(isToggle){
-            isToggle = false;
-            toggleCheck.setChecked(isToggle);
-          }
-          else {
-            isToggle = true;
-            toggleCheck.setChecked(true);
-          }
-        }
         // out of loop. going for next round
         diceCup.RunDice();
       }
@@ -347,8 +334,20 @@ public class NavigationPane extends GameGrid
 
       gp.switchToNextPuppet();
       // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
-      // Tag for change 3
-      // if they are in the same block, reverse one
+
+      // Tag for change 4
+      if (Strategy.defaultStrategy(gp))
+      {
+        gp.ReverseConnections();
+        if(isToggle){
+          isToggle = false;
+          toggleCheck.setChecked(isToggle);
+        }
+        else {
+          isToggle = true;
+          toggleCheck.setChecked(true);
+        }
+      }
 
 
 
