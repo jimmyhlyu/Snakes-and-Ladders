@@ -38,15 +38,12 @@ public class NavigationPane extends GameGrid
           }
           handBtn.show(0);
         }
-
+        // True is satisfy strategy and this puppet is a auto one
         if (Strategy.defaultStrategy(gp) && (gp.getPuppet().isAuto()))
         {
-
           willReverse = true;
-
-
         }
-
+        handBtn.show(0);
         // out of loop. going for next round
         diceCup.RunDice();
       }
@@ -264,7 +261,6 @@ public class NavigationPane extends GameGrid
       @Override
       public void buttonChecked(GGCheckButton ggCheckButton, boolean checked) {
         isToggle = checked;
-        System.out.println("if check = " + checked);
         gp.ReverseConnections();
       }
     });
@@ -343,12 +339,12 @@ public class NavigationPane extends GameGrid
       String result = gp.getPuppet().getPuppetName() + " - pos: " + currentIndex;
       showResult(result);
 
-
       gp.switchToNextPuppet();
-      // System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
-
+      //System.out.println("current puppet - auto: " + gp.getPuppet().getPuppetName() + "  " + gp.getPuppet().isAuto() );
       // Tag for change 4
+      // Reverse if willReverse = true
       ReverseConnection();
+
       if (isAuto) {
         Monitor.wakeUp();
       } else if (gp.getPuppet().isAuto()) {
@@ -386,11 +382,20 @@ public class NavigationPane extends GameGrid
     System.out.println("hand button clicked");
     prepareBeforeRoll();
     roll(getDieValue());
+    // if for the game start, puppet is auto
+    if(gp.getPuppet().isAuto()){
+      delay(1000);
+      Monitor.wakeUp();
+    }
     // Roll for multiple dice
     rollDice();
   }
   // Tag for change 4
   private void ReverseConnection(){
+    /*
+    * This function will perform the Reverse operate
+    *
+    * */
     if(willReverse == true){
       gp.ReverseConnections();
       if(isToggle){
@@ -417,6 +422,7 @@ public class NavigationPane extends GameGrid
     }
     if (diceChance >= numberOfDice){
       diceChance = 0;
+      handBtn.setEnabled(false);
       diceCup.RunDice();
     }
   }
@@ -449,6 +455,8 @@ public class NavigationPane extends GameGrid
   }
 
   public void checkAuto() {
+    // Tag for change 3
+
     if (isAuto) Monitor.wakeUp();
   }
 

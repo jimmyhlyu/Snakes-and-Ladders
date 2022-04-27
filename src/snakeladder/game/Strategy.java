@@ -8,7 +8,7 @@ public final class Strategy {
 
 
     public static boolean defaultStrategy(GamePane gp){
-        Puppet opponent = gp.getPuppet();
+        Puppet opponent = gp.getNextPuppet();
         int cellIndex = opponent.getCellIndex();
         int countSnake = 0;
         int countLadder = 0;

@@ -24,12 +24,15 @@ public class Puppet extends Actor
   // Tag for change 3
   // An indicator for is reverse one block or not
   private boolean isReverse = false;
+  // Tag for change 5
+  // Two Statistic for stats.
   private Statistic rollStat;
   private Statistic traverStat;
 
 
 
   // Tag for change 5
+  // Init function for rollstats data entries
   public List<Integer> Rollstats(int diceNum){
     List<Integer> rollstats = new ArrayList<>();
     for (int i = diceNum; i <= diceNum * 6; i++){
@@ -47,13 +50,15 @@ public class Puppet extends Actor
     super(puppetImage);
     this.gamePane = gp;
     this.navigationPane = np;
+    // Tag for change 5
+    // Init two stats
     this.rollStat = new Statistic(Rollstats(navigationPane.getNumberOfDice()));
     this.traverStat =  new Statistic(new ArrayList(Arrays.asList("up", "down")));
   }
 
 
 
-
+  // Two stats getters
   public Statistic getRollStat() {
     return rollStat;
   }
@@ -86,6 +91,7 @@ public class Puppet extends Actor
     }
     this.nbSteps = nbSteps;
     //Tag for change 2
+    // Check if is min step
     if(nbSteps == navigationPane.getNumberOfDice()){
       isMinStep = true;
     }
@@ -136,7 +142,7 @@ public class Puppet extends Actor
     int buffCell = cellIndex;
     int tens = buffCell / 10;
     int ones = buffCell - tens * 10;
-    if (tens % 2 == 0)     // Cells starting left 01, 21, .. 81
+    if (tens % 2 == 0)
     {
       if (ones == 1 && cellIndex > 0)
         setLocation(new Location(getX(), getY() + 1));
@@ -147,7 +153,7 @@ public class Puppet extends Actor
         setLocation(new Location(getX() - 1, getY()));
 
     }
-    else     // Cells starting left 20, 40, .. 100
+    else
     {
       if (ones == 1 && cellIndex > 0)
         setLocation(new Location(getX(), getY() + 1));
@@ -205,6 +211,7 @@ public class Puppet extends Actor
 
     // Normal movement
     // Tag for Change 3
+    // Add situation from go(-1)
     if (nbSteps > 0 || nbSteps == -1)
     {
       if (nbSteps > 0)
@@ -260,7 +267,7 @@ public class Puppet extends Actor
             navigationPane.playSound(GGSound.BOING);
           }
           // Tag for change 2
-          // A case for min step and in the snake position
+          // A case for min step also in the downward connection entry
           else
           {
             currentCon = null;

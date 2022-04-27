@@ -16,9 +16,6 @@ public class GamePane extends GameGrid
   private List<Puppet> puppets =  new ArrayList<>();
   private List<Boolean> playerManualMode;
   private ArrayList<Connection> connections = new ArrayList<Connection>();
-  // Tag for change 4
-  private ArrayList<Connection> originalConnections;
-  private ArrayList<Connection> reverseConnections;
   final Location startLocation = new Location(-1, 9);  // outside grid
   final int animationStep = 10;
   public static final int NUMBER_HORIZONTAL_CELLS = 10;
@@ -97,7 +94,7 @@ public class GamePane extends GameGrid
   }
 
   //Tag for change 4
-
+  // A getter for next puppet
   public Puppet getNextPuppet(){
     return puppets.get((currentPuppetIndex + 1) % numberOfPlayers);
   }
